@@ -1,0 +1,7 @@
+<!-- templates/os_info.html -->
+{% for device_ip, os_info in os_info_list %}
+<tr>
+    <td>{{ device_ip }}</td>
+    <td>{{ os_info }}</td>
+</tr>
+{% endfor %}

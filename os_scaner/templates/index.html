@@ -1,0 +1,114 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dynamic OS Information</title>
+    <meta charset="utf-8">
+
+    <style>
+        /* Add some basic styling to the table */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            border: 2px solid #1a5276; /* Dark blue border */
+            border-radius: 5px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #dddddd;
+        }
+
+        th {
+            background-color: #1a5276; /* Dark blue header background */
+            color: white; /* White text color for header */
+            font-weight: bold;
+        }
+
+        /* Add some additional styles to the table for better visualization */
+        td {
+            white-space: pre-line;
+            max-width: 400px;
+            word-wrap: break-word;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        tr:hover {
+            background-color: #ecf0f1; /* Light blue background on hover */
+        }
+
+        /* Add styling to the page header */
+        h1 {
+            color: black; /* Black header text color */
+            border-bottom: 2px solid #1a5276; /* Dark blue underline */
+            padding-bottom: 10px;
+        }
+
+        /* Add light blue background color to the body */
+        body {
+            background-color: #d6eaf8; /* Light blue background color */
+        }
+
+        /* Add styling to the button */
+        .download-button {
+            display: block;
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: #1a5276; /* Dark blue button background */
+            color: white; /* White text color for button */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        /* Apply alternating background colors to table rows */
+        tr:nth-child(even) {
+            background-color: #f2f2f2; /* Grey background for even rows */
+        }
+
+        tr:nth-child(odd) {
+            background-color: #ffffff; /* White background for odd rows */
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>Dynamic OS Information</h1>
+    
+    <!-- Button linking to /download_results -->
+    <a href="/download_results" class="download-button">Download Results</a>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Device IP</th>
+                <th>OS Information</th>
+            </tr>
+        </thead>
+        <tbody id="os-info-table-body">
+            <!-- This will be filled dynamically using JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        // Function to update the dynamic OS information table on the page
+        function updateOSInfo() {
+            fetch('/os_info')
+                .then(response => response.text())
+                .then(data => {
+                    const tableBody = document.getElementById('os-info-table-body');
+                    tableBody.innerHTML = data;
+                });
+        }
+
+        // Call the updateOSInfo function once the page is fully loaded
+        document.addEventListener('DOMContentLoaded', updateOSInfo);
+
+        // Call the updateOSInfo function every 1 second
+        setInterval(updateOSInfo, 1000);
+    </script>
+</body>
+</html>
